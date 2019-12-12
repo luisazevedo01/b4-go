@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Club {
 
+    private int id;
     private String name;
     private MusicGenre musicGenres;
     private List<User> userList;
@@ -32,5 +33,13 @@ public class Club {
 
     public void setUserList(List<User> userList) {
         this.userList = userList;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
