@@ -9,16 +9,41 @@
     <link rel="stylesheet" href="assets/css/login.css">
   </head>
   <body>
-    
-    <div class="container">
-        <h1 class="mt-5 text-center">APP NAME</h1>
 
-         <!-- LOGIN -->
-        <div class="row" id="login">
+      <div class="container">
+
+        <h1 class="mt-5 text-center text-white">APP NAME</h1>
+        
+        <!-- LOGIN -->
+        <div class="row center-page" id="login">
+          <div class="col-xs-0  col-md-4">
+          </div>
+          <div class="col-sm-12 col-md-4">
+            <form class="mt-5">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username-login" aria-describedby="emailHelp">
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password-login">
+              </div>
+              <button type="submit" class="btn btn-primary" id="login-submit">Submit</button>
+              <button type="button" class="btn btn-success" id="register-button">Register</button>
+            </form>
+          </div>
+        </div>
+        
+        <!-- REGISTER -->
+        <div class="row center-page" id="register">
           <div class="d-xs-none col-md-3">
           </div>
           <div class="col-sm-12 col-md-6">
             <form class="mt-5">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" aria-describedby="emailHelp">
+              </div>
               <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" class="form-control" id="username" aria-describedby="emailHelp">
@@ -27,71 +52,15 @@
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password">
               </div>
-              <button type="submit" class="btn btn-primary" id="login-submit">Submit</button>
-              <button type="button" class="btn btn-success" id="register-button">Register</button>
+              <button type="button" class="btn btn-primary" id="register-submit">Submit</button>
+              <button type="button" class="btn btn-danger" id="cancel-button">Cancel</button>
+              
             </form>
           </div>
         </div>
-
-         <!-- REGISTER -->
-        <div class="row" id="register">
-            <div class="d-xs-none col-md-3">
-            </div>
-            <div class="col-sm-12 col-md-6">
-              <form class="mt-5" method="POST">
-                <div class="form-group">
-                  <label for="completeName">First and Last Name</label>
-                  <input type="text" class="form-control" id="completeName" aria-describedby="emailHelp">
-                </div>
-                <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="text" class="form-control" id="email" aria-describedby="emailHelp">
-                  </div>
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" aria-describedby="emailHelp">
-                  </div>
-                <div class="form-group">
-                  <label for="password">Password</label>
-                  <input type="password" class="form-control" id="password">
-                </div>
-                <button type="submit" class="btn btn-primary" id="login-submit">Submit</button>
-                <button type="button" class="btn btn-danger" id="cancel-button">Cancel</button>
-
-              </form>
-            </div>
-          </div>
-            <!-- TESTING -->
-            <div class="middle">
-                  <div id="login">
-            
-                    <form action="javascript:void(0);" method="get">
-            
-                      <fieldset class="clearfix">
-            
-                        <p ><span class="fa fa-user"></span><input type="text"  Placeholder="Username" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
-                        <p><span class="fa fa-lock"></span><input type="password"  Placeholder="Password" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
-                        
-                         <div>
-                                            <span style="width:48%; text-align:left;  display: inline-block;"><a class="small-text" href="#">Forgot
-                                            password?</a></span>
-                                            <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit" value="Sign In"></span>
-                                        </div>
-            
-                      </fieldset>
-            <div class="clearfix"></div>
-                    </form>
-            
-                    <div class="clearfix"></div>
-            
-                  </div> <!-- end login -->
-                  <div class="logo">LOGO
-                      
-                      <div class="clearfix"></div>
-                  </div>
-                  
-                  </div>
-
+      <!-- TESTING -->
+        
+        
 
     </div>
 

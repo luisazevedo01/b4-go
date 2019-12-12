@@ -31,7 +31,7 @@ function getGenres(){
     }
 
     function errorCallback(){
-        alert("There was an error loading clubs");
+        getAllClubs();
     }
     
     $.ajax({
@@ -43,7 +43,6 @@ function getGenres(){
     });
     
 }
-
 
 function getAllClubs(){
     
