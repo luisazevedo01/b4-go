@@ -17,7 +17,7 @@ public interface ClubService {
      * Returns the club with specified id (which has its info and users, etc...)
      * @return
      */
-    Club get(Integer id);
+    Club getClub(Integer id);
 
     /**
      * After user clicks GO he is inserted into the clubs users
