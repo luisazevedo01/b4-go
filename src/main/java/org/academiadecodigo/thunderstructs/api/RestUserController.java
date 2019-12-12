@@ -29,12 +29,12 @@ public class RestUserController {
         return new ResponseEntity<>(userService.getUsersMap(), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Integer id) {
-        if (userService.getUsersMap().get(id) == null) {
+    @RequestMapping(method = RequestMethod.GET, path = "/{username}")
+    public ResponseEntity<User> getUser(@PathVariable String username) {
+        if (userService.getUserById(username) == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(userService.getUsersMap().get(id), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getUserById(username), HttpStatus.OK);
     }
 
 }
