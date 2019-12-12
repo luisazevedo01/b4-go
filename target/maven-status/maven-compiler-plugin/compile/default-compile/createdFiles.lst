@@ -15,5 +15,6 @@ org/academiadecodigo/thunderstructs/controllers/ClubController.class
 org/academiadecodigo/thunderstructs/models/Club.class
 org/academiadecodigo/thunderstructs/controllers/LoginController.class
 org/academiadecodigo/thunderstructs/services/RegisterServiceImpl.class
+org/academiadecodigo/thunderstructs/api/RestGenreController.class
 org/academiadecodigo/thunderstructs/controllers/UserController.class
 org/academiadecodigo/thunderstructs/services/LoginService.class

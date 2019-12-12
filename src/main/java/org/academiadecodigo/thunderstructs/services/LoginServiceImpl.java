@@ -8,18 +8,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoginServiceImpl implements LoginService {
 
-    private UserMock app;
+    private UserMock userMock;
     private User loggedUser;
     private boolean confirmation;
 
     @Autowired
-    public void setApp(UserMock app) {
-        this.app = app;
+    public void setUserMock(UserMock userMock) {
+        this.userMock = userMock;
     }
 
     @Override
     public User verification(String username, String password) {
-        for (User user : app.getUsersMap().values()) {
+        for (User user : userMock.getUsersMap().values()) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
                 confirmation = true;
                 loggedUser = user;

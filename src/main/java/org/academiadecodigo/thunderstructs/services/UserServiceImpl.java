@@ -13,12 +13,12 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
     private ClubDB clubDB;
-    private UserMock app;
+    private UserMock userMock;
 
 
     @Autowired
-    public void setApp(UserMock app) {
-        this.app = app;
+    public void setUserMock(UserMock userMock) {
+        this.userMock = userMock;
     }
     @Autowired
     public void setClubDB(ClubDB clubDB) {
@@ -28,12 +28,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(String username) {
 
-        return app.getUsersMap().get(username);
+        return userMock.getUsersMap().get(username);
     }
 
     @Override
     public Map<String, User> getUsersMap() {
-        return app.getUsersMap();
+        return userMock.getUsersMap();
     }
 
     @Override

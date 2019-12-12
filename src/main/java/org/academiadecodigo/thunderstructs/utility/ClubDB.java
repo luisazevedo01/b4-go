@@ -3,6 +3,7 @@ package org.academiadecodigo.thunderstructs.utility;
 import org.academiadecodigo.thunderstructs.UserMock;
 import org.academiadecodigo.thunderstructs.models.Club;
 import org.academiadecodigo.thunderstructs.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.HashMap;
 @Component
 public class ClubDB {
 
-    private HashMap<Integer, Club> clubs;
+    private HashMap<Integer, Club> clubs = new HashMap<>();
     private UserMock userMock;
 
     public ClubDB() {
@@ -32,7 +33,7 @@ public class ClubDB {
 
         Club portoPipas = new Club();
         portoPipas.setId(3);
-        portoPipas.setName("Porto Pipas");
+        portoPipas.setName("Ibiza");
         portoPipas.setMusicGenre(MusicGenre.RAP);
         portoPipas.setUserList(new HashMap<String, User>());
 
@@ -42,6 +43,7 @@ public class ClubDB {
 
     }
 
+    @Autowired
     public void setUserMock(UserMock userMock) {
         this.userMock = userMock;
     }
@@ -50,7 +52,4 @@ public class ClubDB {
         return clubs;
     }
 
-    public void setClubs(HashMap<Integer, Club> clubs) {
-        this.clubs = clubs;
-    }
 }
