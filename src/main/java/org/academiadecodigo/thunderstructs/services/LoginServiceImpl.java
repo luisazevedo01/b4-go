@@ -18,22 +18,21 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public User verification(String username, String password) {
+    public void verification(String username, String password) {
         for (User user : userMock.getUsersMap().values()) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
                 confirmation = true;
                 loggedUser = user;
-            } else {
-                loggedUser = null;
             }
         }
-        return loggedUser;
     }
 
+    @Override
     public boolean isConfirmed() {
         return confirmation;
     }
 
+    @Override
     public User getLoggedUser() {
         return loggedUser;
     }

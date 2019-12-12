@@ -4,5 +4,9 @@ import org.academiadecodigo.thunderstructs.models.User;
 
 public interface LoginService {
 
-    User verification(String username, String password);
+    void verification(String username, String password);
+
+    boolean isConfirmed();
+
+    User getLoggedUser();
 }
