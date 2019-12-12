@@ -2,6 +2,7 @@ package org.academiadecodigo.thunderstructs.api;
 
 import org.academiadecodigo.thunderstructs.models.Club;
 import org.academiadecodigo.thunderstructs.services.ClubService;
+import org.academiadecodigo.thunderstructs.utility.MusicGenre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,13 +32,31 @@ public class RestClubController {
         return new ResponseEntity<>(clubList, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/genre")
-    public ResponseEntity<List<Club>> listClubsByGenre() {
-        return null;
+    @RequestMapping(method = RequestMethod.GET, path = "/{genre}")
+    public ResponseEntity<List<Club>> listClubsByGenre(@PathVariable MusicGenre genre) {
+
+        List<Club> clubList = new LinkedList<>();
+        clubList.addAll(clubService.getClubs().values());
+
+        List<Club> clubListByGenre = new LinkedList<>();
+        for (Club club : clubList) {
+            if (club.getMusicGenre() == genre) {
+                clubListByGenre.add(club);
+            }
+        }
+
+        return new ResponseEntity<>(clubListByGenre, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
     public ResponseEntity<Club> showClub(@PathVariable Integer id) {
+
+        return new ResponseEntity<>(clubService.get(id), HttpStatus.OK);
+
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/{clubId}")
+    public ResponseEntity<Club> goToClub(@PathVariable Integer clubId){
         return null;
     }
 
