@@ -3,6 +3,7 @@ package org.academiadecodigo.thunderstructs.services;
 import org.academiadecodigo.thunderstructs.App;
 import org.academiadecodigo.thunderstructs.models.Club;
 import org.academiadecodigo.thunderstructs.models.User;
+import org.academiadecodigo.thunderstructs.utility.ClubDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public Club userClub(Club option) {
 
-        return clubDB.getClubs.get(option.getId());
+        return clubDB.getClubs().get(option.getId());
     }
 }
