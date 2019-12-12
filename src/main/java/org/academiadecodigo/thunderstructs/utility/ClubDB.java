@@ -45,7 +45,7 @@ public class ClubDB {
 
         clubs.put(delmans.getId(), delmans);
         clubs.put(havanna.getId(), havanna);
-        clubs.put(ibiza.getId(), twins);
+        clubs.put(ibiza.getId(), ibiza);
         clubs.put(twins.getId(), twins);
 
     }
