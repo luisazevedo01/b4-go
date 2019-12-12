@@ -3,12 +3,14 @@ package org.academiadecodigo.thunderstructs.models;
 import org.academiadecodigo.thunderstructs.utility.MusicGenre;
 
 import java.util.List;
+import java.util.Map;
 
 public class Club {
 
+    private Integer id;
     private String name;
-    private MusicGenre musicGenres;
-    private List<User> userList;
+    private MusicGenre musicGenre;
+    private Map<String, User> userList;
 
     public String getName() {
         return name;
@@ -18,19 +20,27 @@ public class Club {
         this.name = name;
     }
 
-    public MusicGenre getMusicGenres() {
-        return musicGenres;
+    public MusicGenre getMusicGenre() {
+        return musicGenre;
     }
 
-    public void setMusicGenres(MusicGenre musicGenres) {
-        this.musicGenres = musicGenres;
+    public void setMusicGenre(MusicGenre musicGenre) {
+        this.musicGenre = musicGenre;
     }
 
-    public List<User> getUserList() {
+    public Map<String, User> getUserList() {
         return userList;
     }
 
-    public void setUserList(List<User> userList) {
+    public void setUserList(Map<String, User> userList) {
         this.userList = userList;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

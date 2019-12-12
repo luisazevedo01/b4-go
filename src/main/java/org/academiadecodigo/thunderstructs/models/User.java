@@ -2,9 +2,11 @@ package org.academiadecodigo.thunderstructs.models;
 
 public class User {
 
+
     private String username;
     private String password;
     private String name;
+    private Club club;
 
     public String getUsername() {
         return username;
@@ -28,5 +30,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Club getClub() {
+        return club;
+    }
+
+    public void setClub(Club club) {
+        this.club = club;
     }
 }
