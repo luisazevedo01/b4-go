@@ -14,7 +14,7 @@ public class User {
 
     private String name;
 
-    private String club;
+    private Club club;
 
     public String getUsername() {
         return username;
