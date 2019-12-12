@@ -26,7 +26,10 @@ function getGenres(){
 
         $.each(data,function(index,element){
             
-            let genre = data[1];
+            let genre = data[index];
+            genre = genre.charAt(0).toUpperCase() + genre.slice(1)
+            let option = '<option class="option">' + genre + '</option>';
+            $(option).appendTo(select);
 
             console.log(genre);
         });
@@ -55,14 +58,16 @@ function getClubs(){
         $.each(data,function(index,element){
             let cards = $('#clubs');
 
-            $(cards).after('<div class="card" style="width: 18rem;"> '+
+            let card = '<div class="col">'+
+            '<div class="card"> '+
             '<img src="..." class="card-img-top" alt="..."> '+
             '<div class="card-body">'+
             '<h5 class="card-title">'+ element.name +'</h5>' +
             '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>'+
               '<a href="#" class="btn btn-primary">Go somewhere</a>'+
-            '</div>'+
-          '</div>');
+            '</div></div></div>';
+
+            $(card).appendTo(cards);
             console.log(element.id);
         });
     }
