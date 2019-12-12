@@ -1,6 +1,6 @@
 package org.academiadecodigo.thunderstructs.services;
 
-import org.academiadecodigo.thunderstructs.App;
+import org.academiadecodigo.thunderstructs.UserMock;
 import org.academiadecodigo.thunderstructs.models.Club;
 import org.academiadecodigo.thunderstructs.models.User;
 import org.academiadecodigo.thunderstructs.utility.ClubDB;
@@ -13,11 +13,11 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
     private ClubDB clubDB;
-    private App app;
+    private UserMock app;
 
 
     @Autowired
-    public void setApp(App app) {
+    public void setApp(UserMock app) {
         this.app = app;
     }
     @Autowired

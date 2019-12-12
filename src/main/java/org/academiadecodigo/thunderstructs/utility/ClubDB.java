@@ -1,6 +1,6 @@
 package org.academiadecodigo.thunderstructs.utility;
 
-import org.academiadecodigo.thunderstructs.App;
+import org.academiadecodigo.thunderstructs.UserMock;
 import org.academiadecodigo.thunderstructs.models.Club;
 import org.academiadecodigo.thunderstructs.models.User;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class ClubDB {
 
     private HashMap<Integer, Club> clubs;
-    private App app;
+    private UserMock userMock;
 
     public ClubDB() {
         populate();
@@ -42,8 +42,8 @@ public class ClubDB {
 
     }
 
-    public void setApp(App app) {
-        this.app = app;
+    public void setUserMock(UserMock userMock) {
+        this.userMock = userMock;
     }
 
     public HashMap<Integer, Club> getClubs() {
