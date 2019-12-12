@@ -6,6 +6,7 @@ import org.academiadecodigo.thunderstructs.dto.UserToUserDto;
 import org.academiadecodigo.thunderstructs.models.Club;
 import org.academiadecodigo.thunderstructs.models.User;
 import org.academiadecodigo.thunderstructs.services.ClubService;
+import org.academiadecodigo.thunderstructs.services.UserService;
 import org.academiadecodigo.thunderstructs.utility.MusicGenre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ import java.util.List;
 public class RestClubController {
 
     private ClubService clubService;
+    private UserService userService;
     private UserDtoToUser userDtoToUser;
     private UserToUserDto userToUserDto;
 
@@ -40,6 +42,11 @@ public class RestClubController {
     @Autowired
     public void setUserToUserDto(UserToUserDto userToUserDto) {
         this.userToUserDto = userToUserDto;
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @RequestMapping(method = RequestMethod.GET, path = {"/", ""})
@@ -83,13 +90,16 @@ public class RestClubController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        if (userDto.getClub() != null) {
+        User user = userDtoToUser.convert(userDto);
+
+        //checks if the user is already in the club (extra security)
+        if (clubService.getClub(clubId).getUserList().get(user.getUsername()) != null) {
             return new ResponseEntity<>(HttpStatus.FOUND);
         }
 
-        User user = userDtoToUser.convert(userDto);
-        user.setClub(clubService.getClub(clubId));
+        clubService.addUserToClub(user, clubId);
 
+        userService.getUserById(user.getUsername()).setClub(clubService.getClub(clubId));
 
         return new ResponseEntity<>(userToUserDto.convert(user), HttpStatus.ACCEPTED);
     }
