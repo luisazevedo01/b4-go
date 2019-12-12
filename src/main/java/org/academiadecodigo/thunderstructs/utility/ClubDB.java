@@ -31,15 +31,15 @@ public class ClubDB {
         havana.setMusicGenre(MusicGenre.POP);
         havana.setUserList(new HashMap<String, User>());
 
-        Club portoPipas = new Club();
-        portoPipas.setId(3);
-        portoPipas.setName("Ibiza");
-        portoPipas.setMusicGenre(MusicGenre.RAP);
-        portoPipas.setUserList(new HashMap<String, User>());
+        Club ibiza = new Club();
+        ibiza.setId(3);
+        ibiza.setName("Ibiza");
+        ibiza.setMusicGenre(MusicGenre.RAP);
+        ibiza.setUserList(new HashMap<String, User>());
 
         clubs.put(delmans.getId(), delmans);
         clubs.put(havana.getId(), havana);
-        clubs.put(portoPipas.getId(), portoPipas);
+        clubs.put(ibiza.getId(), ibiza);
 
     }
 

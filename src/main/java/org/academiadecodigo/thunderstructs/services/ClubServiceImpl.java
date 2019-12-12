@@ -22,8 +22,8 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public Club getClub(Integer id) {
-        return null;
+    public Club get(Integer id) {
+        return clubDB.getClubs().get(id);
     }
 
     @Override
