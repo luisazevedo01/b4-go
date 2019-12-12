@@ -1,6 +1,5 @@
 package org.academiadecodigo.thunderstructs.utility;
 
-import org.academiadecodigo.thunderstructs.UserMock;
 import org.academiadecodigo.thunderstructs.models.Club;
 import org.academiadecodigo.thunderstructs.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
