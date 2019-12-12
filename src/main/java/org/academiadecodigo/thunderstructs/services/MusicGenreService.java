@@ -4,7 +4,7 @@ import org.academiadecodigo.thunderstructs.utility.MusicGenre;
 
 public interface MusicGenreService {
 
-    MusicGenre clubMusicGenre();
+    MusicGenre clubMusicGenre(int id);
 
     MusicGenre changeMusicGenre();
 
