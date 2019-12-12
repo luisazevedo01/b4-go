@@ -6,7 +6,6 @@ import org.academiadecodigo.thunderstructs.models.User;
 import org.academiadecodigo.thunderstructs.utility.ClubDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Map;
 
 @Service
