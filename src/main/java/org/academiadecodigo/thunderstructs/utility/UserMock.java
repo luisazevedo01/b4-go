@@ -1,4 +1,4 @@
-package org.academiadecodigo.thunderstructs;
+package org.academiadecodigo.thunderstructs.utility;
 
 import org.academiadecodigo.thunderstructs.models.User;
 import org.springframework.stereotype.Component;
