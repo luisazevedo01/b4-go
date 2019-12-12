@@ -24,11 +24,11 @@ public class ClubDB {
         delmans.setMusicGenre(MusicGenre.PIMBA);
         delmans.setUserList(new HashMap<String, User>());
 
-        Club havana = new Club();
-        havana.setId(2);
-        havana.setName("Havana");
-        havana.setMusicGenre(MusicGenre.POP);
-        havana.setUserList(new HashMap<String, User>());
+        Club havanna = new Club();
+        havanna.setId(2);
+        havanna.setName("Havanna");
+        havanna.setMusicGenre(MusicGenre.POP);
+        havanna.setUserList(new HashMap<String, User>());
 
         Club ibiza = new Club();
         ibiza.setId(3);
@@ -36,9 +36,16 @@ public class ClubDB {
         ibiza.setMusicGenre(MusicGenre.RAP);
         ibiza.setUserList(new HashMap<String, User>());
 
+        Club twins = new Club();
+        twins.setId(4);
+        twins.setName("Twins");
+        twins.setMusicGenre(MusicGenre.POP);
+        twins.setUserList(new HashMap<String, User>());
+
         clubs.put(delmans.getId(), delmans);
-        clubs.put(havana.getId(), havana);
+        clubs.put(havanna.getId(), havanna);
         clubs.put(ibiza.getId(), ibiza);
+        clubs.put(twins.getId(), twins);
 
     }
 

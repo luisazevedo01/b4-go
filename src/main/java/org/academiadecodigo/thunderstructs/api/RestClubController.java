@@ -6,15 +6,13 @@ import org.academiadecodigo.thunderstructs.utility.MusicGenre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(path = "/club")
 public class RestClubController {
@@ -32,7 +30,7 @@ public class RestClubController {
         return new ResponseEntity<>(clubList, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/{genre}")
+    @RequestMapping(method = RequestMethod.GET, path = "/genre/{genre}")
     public ResponseEntity<List<Club>> listClubsByGenre(@PathVariable MusicGenre genre) {
 
         List<Club> clubList = new LinkedList<>();
@@ -51,7 +49,7 @@ public class RestClubController {
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
     public ResponseEntity<Club> showClub(@PathVariable Integer id) {
 
-        return new ResponseEntity<>(clubService.get(id), HttpStatus.OK);
+        return new ResponseEntity<>(clubService.getClub(id), HttpStatus.OK);
 
     }
 

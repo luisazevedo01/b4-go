@@ -22,7 +22,7 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public Club get(Integer id) {
+    public Club getClub(Integer id) {
         return clubDB.getClubs().get(id);
     }
 
