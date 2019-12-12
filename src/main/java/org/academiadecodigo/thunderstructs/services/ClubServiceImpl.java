@@ -5,6 +5,7 @@ import org.academiadecodigo.thunderstructs.utility.ClubDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Set;
 
 @Service
@@ -18,9 +19,8 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public Set<Club> getClubs() {
-
-        return null;
+    public HashMap<Integer, Club> getClubs() {
+        return clubDB.getClubs();
     }
 
     @Override

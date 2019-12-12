@@ -2,6 +2,7 @@ package org.academiadecodigo.thunderstructs.services;
 
 import org.academiadecodigo.thunderstructs.models.Club;
 
+import java.util.HashMap;
 import java.util.Set;
 
 public interface ClubService {
@@ -10,7 +11,7 @@ public interface ClubService {
      * Get all clubs that exist registered on the webiste
      * @return
      */
-    Set<Club> getClubs();
+    HashMap<Integer, Club> getClubs();
 
     /**
      * Returns the club with specified id (which has its info and users, etc...)
