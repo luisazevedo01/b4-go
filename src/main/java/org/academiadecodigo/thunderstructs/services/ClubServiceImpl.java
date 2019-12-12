@@ -1,6 +1,7 @@
 package org.academiadecodigo.thunderstructs.services;
 
 import org.academiadecodigo.thunderstructs.models.Club;
+import org.academiadecodigo.thunderstructs.models.User;
 import org.academiadecodigo.thunderstructs.utility.ClubDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,9 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public void addUserToClub(String username) {
+    public void addUserToClub(User user, Integer clubId) {
 
+        Club club = clubDB.getClubs().get(clubId);
+        club.getUserList().put(user.getUsername(), user);
     }
 }

@@ -20,10 +20,6 @@ public class UserDto {
     @Size(min = 3 , max = 50)
     private String name;
 
-    @NotNull(message = "Name is required")
-    @NotBlank(message = "Name is required")
-    @Pattern(regexp = "^\\[A-Za-z]*$/")
-    @Size(min = 3 , max = 50)
     private Club club;
 
     public String getUsername() {
