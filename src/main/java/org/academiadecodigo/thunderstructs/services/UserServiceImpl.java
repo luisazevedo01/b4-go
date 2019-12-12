@@ -40,4 +40,10 @@ public class UserServiceImpl implements UserService {
 
         return clubDB.getClubs().get(option.getId());
     }
+
+    @Override
+    public void addUser(User user) {
+        userMock.getUsersMap().put(user.getUsername(), user);
+    }
+
 }

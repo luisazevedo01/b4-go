@@ -1,26 +1,33 @@
 package org.academiadecodigo.thunderstructs.api;
 
 import org.academiadecodigo.thunderstructs.models.User;
+import org.academiadecodigo.thunderstructs.services.RegisterService;
 import org.academiadecodigo.thunderstructs.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(path = "/user")
 public class RestUserController {
 
     private UserService userService;
+    private RegisterService registerService;
 
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    @Autowired
+    public void setRegisterService(RegisterService registerService) {
+        this.registerService = registerService;
     }
 
     @RequestMapping(method = RequestMethod.GET, path = {"/", ""})
@@ -35,6 +42,23 @@ public class RestUserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(userService.getUserById(username), HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/register")
+    public ResponseEntity<User> registUser(@Valid @RequestBody User user, BindingResult bindingResult){
+
+
+        if(bindingResult.hasErrors()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        if(!(registerService.registConfirmation(user))){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        registerService.registUser(user);
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+
     }
 
 }
