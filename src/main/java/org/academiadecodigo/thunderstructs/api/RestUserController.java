@@ -1,11 +1,15 @@
 package org.academiadecodigo.thunderstructs.api;
 
 import org.academiadecodigo.thunderstructs.models.User;
+import org.academiadecodigo.thunderstructs.services.RegisterService;
 import org.academiadecodigo.thunderstructs.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.Map;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -14,10 +18,16 @@ import java.util.Map;
 public class RestUserController {
 
     private UserService userService;
+    private RegisterService registerService;
 
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    @Autowired
+    public void setRegisterService(RegisterService registerService) {
+        this.registerService = registerService;
     }
 
     @RequestMapping(method = RequestMethod.GET, path = {"/", ""})
@@ -35,8 +45,20 @@ public class RestUserController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/register")
-    public ResponseEntity<User> registUser(){
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<User> registUser(@Valid @RequestBody User user, BindingResult bindingResult){
+
+
+        if(bindingResult.hasErrors()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        if(!(registerService.registConfirmation(user))){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        registerService.registUser(user);
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+
     }
 
 }
