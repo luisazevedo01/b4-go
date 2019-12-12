@@ -7,4 +7,9 @@ $(document).ready(function(){
     $('#login').hide();
   });
 
+  $('#cancel-button').click(function(){
+    $('#login').show();
+    $('#register').hide();
+  });
+
 })
