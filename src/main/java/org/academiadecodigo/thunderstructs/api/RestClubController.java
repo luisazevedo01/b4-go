@@ -95,7 +95,12 @@ public class RestClubController {
         //checks if the user is already in the club, then remove him todo
 
         if (clubService.getClub(clubId).getUserList().get(user.getUsername()) != null) {
-            return new ResponseEntity<>(HttpStatus.FOUND);
+
+            userService.getUserById(user.getUsername()).setClub(null);
+            clubService.removeUser(user, clubId);
+
+            return new ResponseEntity<>(userToUserDto.convert(user), HttpStatus.ACCEPTED);
+
         }
 
         String clubName = clubService.getClub(clubId).getName();

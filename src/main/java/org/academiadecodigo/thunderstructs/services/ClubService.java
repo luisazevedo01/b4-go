@@ -26,5 +26,6 @@ public interface ClubService {
      */
     void addUserToClub(User user, Integer clubId);
 
+    void removeUser(User user, Integer clubId);
 
 }

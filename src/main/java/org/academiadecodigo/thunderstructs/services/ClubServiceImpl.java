@@ -33,6 +33,13 @@ public class ClubServiceImpl implements ClubService {
         Club club = clubDB.getClubs().get(clubId);
         club.getUserList().put(user.getUsername(), user);
 
-        //user.setClub(club.getName());
+    }
+
+    @Override
+    public void removeUser(User user, Integer clubId) {
+
+        Club club = clubDB.getClubs().get(clubId);
+        club.getUserList().remove(user.getUsername());
+
     }
 }
