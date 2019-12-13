@@ -1,6 +1,7 @@
 package org.academiadecodigo.thunderstructs.utility;
 
 import org.academiadecodigo.thunderstructs.dto.UserDto;
+import org.academiadecodigo.thunderstructs.dto.UserToUserDto;
 import org.academiadecodigo.thunderstructs.models.Club;
 import org.academiadecodigo.thunderstructs.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,20 +13,47 @@ import java.util.HashMap;
 public class ClubDB {
 
     private HashMap<Integer, Club> clubs = new HashMap<>();
-    private UserMock userMock;
 
     public ClubDB() {
         populate();
     }
 
     private void populate() {
+
+        User user1 = new User();
+        user1.setName("Jojo");
+        user1.setUsername("jojo");
+        user1.setPassword("1234");
+
+        User user2 = new User();
+        user2.setName("Fabiana");
+        user2.setUsername("fabiana");
+        user2.setPassword("1234");
+
+        User user3 = new User();
+        user3.setName("PDM");
+        user3.setUsername("pdm");
+        user3.setPassword("1234");
+
+        UserToUserDto userToUserDto = new UserToUserDto();
+
+        UserDto jojo = userToUserDto.convert(user1);
+        UserDto fabiana = userToUserDto.convert(user2);
+        UserDto pdm = userToUserDto.convert(user3);
+
+
+
         Club delmans = new Club();
+
         delmans.setId(1);
         delmans.setName("Delmans");
         delmans.setImage("https://media-cdn.tripadvisor.com/media/photo-s/18/5d/bd/26/logotipo-do-espaco.jpg");
         delmans.setDescription("Are you looking for music that you want to fake enjoyment to in a place where there are 40 people and 35 of them are dudes? Then look no further.");
         delmans.setMusicGenre(MusicGenre.PIMBA);
         delmans.setUserList(new HashMap<String, UserDto>());
+        delmans.getUserList().put(jojo.getUsername(),jojo);
+        delmans.getUserList().put(fabiana.getUsername(),fabiana);
+        delmans.getUserList().put(pdm.getUsername(),pdm);
 
         Club havanna = new Club();
         havanna.setId(2);
@@ -56,11 +84,6 @@ public class ClubDB {
         clubs.put(ibiza.getId(), ibiza);
         clubs.put(twins.getId(), twins);
 
-    }
-
-    @Autowired
-    public void setUserMock(UserMock userMock) {
-        this.userMock = userMock;
     }
 
     public HashMap<Integer, Club> getClubs() {
