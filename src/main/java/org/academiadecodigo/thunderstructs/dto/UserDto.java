@@ -45,4 +45,5 @@ public class UserDto {
     public void setClub(String club) {
         this.club = club;
     }
+
 }

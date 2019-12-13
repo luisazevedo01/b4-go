@@ -92,7 +92,7 @@ public class RestClubController {
 
         User user = userDtoToUser.convert(userDto);
 
-        //checks if the user is already in the club, then remove him todo
+        //checks if the user is already in the club, then remove him
 
         if (clubService.getClub(clubId).getUserList().get(user.getUsername()) != null) {
 
@@ -105,14 +105,17 @@ public class RestClubController {
 
         String clubName = clubService.getClub(clubId).getName();
 
-        //set the user converted from dto club to clubName
+        //add user to the clubs list of users
+        clubService.addUserToClub(user, clubId);
+
+        //set the users clubName in the club users list
         user.setClub(clubName);
+        user.setClubId(clubId);
 
         //set the club of the user in DB to the clubName
         userService.getUserById(user.getUsername()).setClub(clubName);
+        userService.getUserById(user.getUsername()).setClubId(clubId);
 
-        //add user to the clubs list of users
-        clubService.addUserToClub(user, clubId);
 
         return new ResponseEntity<>(userToUserDto.convert(userService.getUserById(user.getUsername())), HttpStatus.ACCEPTED);
     }

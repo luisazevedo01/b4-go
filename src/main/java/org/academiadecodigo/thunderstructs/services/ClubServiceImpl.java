@@ -30,6 +30,11 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public void addUserToClub(User user, Integer clubId) {
 
+        if (user.getClubId() != null) {
+
+            removeUser(user, user.getClubId());
+        }
+
         Club club = clubDB.getClubs().get(clubId);
         club.getUserList().put(user.getUsername(), user);
 

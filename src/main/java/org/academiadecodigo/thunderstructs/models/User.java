@@ -10,6 +10,8 @@ public class User {
 
     private String club;
 
+    private Integer clubId;
+
     public String getUsername() {
         return username;
     }
@@ -40,5 +42,13 @@ public class User {
 
     public void setClub(String club) {
         this.club = club;
+    }
+
+    public Integer getClubId() {
+        return clubId;
+    }
+
+    public void setClubId(Integer clubId) {
+        this.clubId = clubId;
     }
 }
