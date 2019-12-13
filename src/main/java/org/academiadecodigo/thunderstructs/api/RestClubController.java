@@ -84,19 +84,24 @@ public class RestClubController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/{clubId}")
-    public ResponseEntity<UserDto> goToClub(@Valid @RequestBody String username, BindingResult bindingResult, @PathVariable Integer clubId){
+    public ResponseEntity<UserDto> goToClub(@Valid @RequestBody UserDto userDto, BindingResult bindingResult, @PathVariable Integer clubId){
 
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        User user = userService.getUserById(username);
+/*        if (true) {
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        }*/
+
+        //User user = userService.getUserById(username);
+        User user = userDtoToUser.convert(userDto);
 
         if(user == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        UserDto userDto = userToUserDto.convert(user);
+        //UserDto userDto = userToUserDto.convert(user);
 
         //checks if the user is already in the club, then remove him if he is
         if (clubService.getClub(clubId).getUserList().get(user.getUsername()) != null) {
