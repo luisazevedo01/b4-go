@@ -1,5 +1,6 @@
 package org.academiadecodigo.thunderstructs.models;
 
+import org.academiadecodigo.thunderstructs.dto.UserDto;
 import org.academiadecodigo.thunderstructs.utility.MusicGenre;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public class Club {
     private String image;
     private String description;
     private MusicGenre musicGenre;
-    private Map<String, User> userList;
+    private Map<String, UserDto> userList;
 
     public String getName() {
         return name;
@@ -30,11 +31,11 @@ public class Club {
         this.musicGenre = musicGenre;
     }
 
-    public Map<String, User> getUserList() {
+    public Map<String, UserDto> getUserList() {
         return userList;
     }
 
-    public void setUserList(Map<String, User> userList) {
+    public void setUserList(Map<String, UserDto> userList) {
         this.userList = userList;
     }
 

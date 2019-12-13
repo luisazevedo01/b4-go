@@ -19,6 +19,7 @@ public class UserDtoToUser {
         user.setClub(userDto.getClub());
         user.setPassword(userService.getUserById(userDto.getUsername()).getPassword());
         user.setClubId(userService.getUserById(userDto.getUsername()).getClubId());
+        user.setMusicGenre(userService.getUserById(userDto.getUsername()).getMusicGenre());
 
         return user;
 
