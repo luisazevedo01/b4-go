@@ -28,7 +28,7 @@ $(document).ready(function(){
       }
       
     $.ajax({
-        url: 'http://192.168.1.105:8080/go-go/user/register/',
+        url: 'http://192.168.1.104:8080/go-go/user/register/',
         type: 'POST',
         async: true,
         contentType: 'application/json',
@@ -64,7 +64,7 @@ function authenticate(){
   }
   
   $.ajax({
-    url: 'http://192.168.1.105:8080/go-go/user/login/',
+    url: 'http://192.168.1.104:8080/go-go/user/login/',
     type: 'POST',
     async: true,
     contentType: 'application/json',

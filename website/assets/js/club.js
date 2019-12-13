@@ -56,7 +56,7 @@ function getClubDetails(club){
     }
     
     $.ajax({
-        url: 'http://192.168.1.105:8080/go-go/club/ '+ club,
+        url: 'http://192.168.1.104:8080/go-go/club/ '+ club,
         async: true,
         data:{get_param : 'id', get_param : 'name', get_param : 'musicGenre', get_param : 'userList'},
         success: successCallback,
@@ -78,7 +78,7 @@ function getCustomerDto(){
     }
     
     $.ajax({
-        url: 'http://192.168.1.105:8080/go-go/user/'+localStorage.getItem('username'),
+        url: 'http://192.168.1.104:8080/go-go/user/'+localStorage.getItem('username'),
         async: true,
         data:{},
         success: successCallback,
@@ -127,7 +127,7 @@ function getGenres(){
             }
             
             $.ajax({
-                url: 'http://192.168.1.105:8080/go-go/user/'+localStorage.getItem('username'),
+                url: 'http://192.168.1.104:8080/go-go/user/'+localStorage.getItem('username'),
                 async: true,
                 data:{},
                 success: successCallback,
@@ -143,7 +143,7 @@ function getGenres(){
     }
     
     $.ajax({
-        url: 'http://192.168.1.105:8080/go-go/genre/',
+        url: 'http://192.168.1.104:8080/go-go/genre/',
         async: true,
         data:{},
         success: successCallback,
@@ -165,7 +165,7 @@ function joinClub(dto){
     }
     
     $.ajax({
-        url: 'http://192.168.1.105:8080/go-go/club/' + urlParam("club"),
+        url: 'http://192.168.1.104:8080/go-go/club/' + urlParam("club"),
         type: 'PUT',
         async: true,
         contentType: 'application/json',
@@ -257,7 +257,7 @@ function getCustomer(){
     }
     
     $.ajax({
-        url: 'http://192.168.1.105:8080/go-go/user/'+localStorage.getItem('username'),
+        url: 'http://192.168.1.104:8080/go-go/user/'+localStorage.getItem('username'),
         async: true,
         data:{},
         success: successCallback,

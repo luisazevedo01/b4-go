@@ -139,6 +139,7 @@ public class RestUserController {
     @RequestMapping(method = RequestMethod.GET, path = "/{id}/win-votation")
     public ResponseEntity<MusicGenre> getUser(@PathVariable int id) {
 
+
         if (musicGenreService.winnerValue() >= 5) {
             return new ResponseEntity<>(musicGenreService.changeGenre(id), HttpStatus.OK);
 
