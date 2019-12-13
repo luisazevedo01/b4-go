@@ -34,12 +34,11 @@ function getClubDetails(club){
         let details = '<div class="card text-center">'+
         '<div class="card-header">'+ data.name +'</div>'+
         '<div class="card-body">'+
-        '<h5 class="card-title">Special title treatment</h5>'+
-        '<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>'+
+        '<img src="'+ data.image +'" class="card-img-top" style="max-width:200px">'+
+        '<p class="card-text">'+ data.description +'</p>'+
         '<button type="button" class="btn btn-primary mr-5" id="join">Join</button>'+
         '<button type="button" class="btn btn-primary" id="back">Go Back</button>'+
         '</div>'+
-        '<div class="card-footer text-muted">2 days ago</div>'+
         '</div>'+
         '<div class="card mt-5"><ul class="list-group">'+ str +'</ul></div>';
         
@@ -67,7 +66,7 @@ function getClubDetails(club){
         error: errorCallback
     });
 }
-
+/*
 function getVotes(){
 
     function successCallback (data) {
@@ -92,7 +91,6 @@ function getVotes(){
         '<button type="button" class="btn btn-primary mr-5" id="join">Join</button>'+
         '<button type="button" class="btn btn-primary" id="back">Go Back</button>'+
         '</div>'+
-        '<div class="card-footer text-muted">2 days ago</div>'+
         '</div>'+
         '<div class="card mt-5"><ul class="list-group">'+ str +'</ul></div>';
         
@@ -117,7 +115,7 @@ function getVotes(){
         error: errorCallback
     });
 
-}
+}*/
 
 function joinClub(){
 
