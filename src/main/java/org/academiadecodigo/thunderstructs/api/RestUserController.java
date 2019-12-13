@@ -110,7 +110,7 @@ public class RestUserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        if(loginService.verification(user.getUsername(), user.getPassword())){
+        if (loginService.verification(user.getUsername(), user.getPassword())) {
             return new ResponseEntity<>(userToUserDto.convert(user), HttpStatus.OK);
         }
 
@@ -135,6 +135,16 @@ public class RestUserController {
         musicGenreService.addVote(user, musicGenre);
         return new ResponseEntity<>(HttpStatus.OK);
 
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}/win-votation")
+    public ResponseEntity<MusicGenre> getUser(@PathVariable int id) {
+
+        if (clubService.getClub(id).getUserList().size() * 0.5 < musicGenreService.winnerValue()) {
+            return new ResponseEntity<>(musicGenreService.changeGenre(id), HttpStatus.OK);
+
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 

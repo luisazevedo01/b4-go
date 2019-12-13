@@ -13,5 +13,6 @@ public interface MusicGenreService {
 
     MusicGenre changeGenre(int id);
 
+    int winnerValue();
 
 }
