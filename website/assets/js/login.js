@@ -3,12 +3,12 @@ $(document).ready(function(){
   $('#register').hide();
 
   $('#register-button').click(function(){
-    $('#register').show();
+    $('#register').fadeToggle(500);
     $('#login').hide();
   });
 
   $('#cancel-button').click(function(){
-    $('#login').show();
+    $('#login').fadeToggle(500);
     $('#register').hide();
   });
 

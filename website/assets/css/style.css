@@ -4,7 +4,7 @@ body{
 
 body::after {
   content: "";
-  background: url(../img/delmans.jpg);
+  background: url(../img/back.jpg);
   background-size: cover;
   background-position-y: 50%;
   opacity: 0.5;

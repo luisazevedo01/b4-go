@@ -19,3 +19,9 @@ label {
 .clickable:hover {
     cursor: pointer;
 }
+.slogan {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 100px;
+    
+  }
