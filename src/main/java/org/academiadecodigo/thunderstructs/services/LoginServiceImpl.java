@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 public class LoginServiceImpl implements LoginService {
 
     private UserMock userMock;
-    private User loggedUser;
-    private boolean confirmation;
 
     @Autowired
     public void setUserMock(UserMock userMock) {
@@ -18,22 +16,14 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public void verification(String username, String password) {
+    public boolean verification(String username, String password) {
         for (User user : userMock.getUsersMap().values()) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                confirmation = true;
-                loggedUser = user;
+                return true;
             }
         }
+
+        return false;
     }
 
-    @Override
-    public boolean isConfirmed() {
-        return confirmation;
-    }
-
-    @Override
-    public User getLoggedUser() {
-        return loggedUser;
-    }
 }

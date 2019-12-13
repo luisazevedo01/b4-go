@@ -1,5 +1,7 @@
 package org.academiadecodigo.thunderstructs.models;
 
+import org.academiadecodigo.thunderstructs.utility.MusicGenre;
+
 public class User {
 
     private String username;
@@ -9,6 +11,16 @@ public class User {
     private String name;
 
     private Club club;
+
+    private MusicGenre musicGenre;
+
+    public MusicGenre getMusicGenre() {
+        return musicGenre;
+    }
+
+    public void setMusicGenre(MusicGenre musicGenre) {
+        this.musicGenre = musicGenre;
+    }
 
     public String getUsername() {
         return username;

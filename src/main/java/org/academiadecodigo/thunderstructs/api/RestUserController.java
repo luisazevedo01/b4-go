@@ -1,11 +1,12 @@
 package org.academiadecodigo.thunderstructs.api;
 
 import org.academiadecodigo.thunderstructs.dto.UserDto;
+import org.academiadecodigo.thunderstructs.dto.UserDtoToUser;
 import org.academiadecodigo.thunderstructs.dto.UserToUserDto;
+import org.academiadecodigo.thunderstructs.models.Club;
 import org.academiadecodigo.thunderstructs.models.User;
-import org.academiadecodigo.thunderstructs.services.LoginService;
-import org.academiadecodigo.thunderstructs.services.RegisterService;
-import org.academiadecodigo.thunderstructs.services.UserService;
+import org.academiadecodigo.thunderstructs.services.*;
+import org.academiadecodigo.thunderstructs.utility.MusicGenre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -24,11 +26,29 @@ public class RestUserController {
     private UserService userService;
     private RegisterService registerService;
     private UserToUserDto userToUserDto;
+    private UserDtoToUser userDtoToUser;
     private LoginService loginService;
+    private MusicGenreService musicGenreService;
+    private ClubService clubService;
+
+    @Autowired
+    public void setClubService(ClubService clubService) {
+        this.clubService = clubService;
+    }
+
+    @Autowired
+    public void setMusicGenreService(MusicGenreService musicGenreService) {
+        this.musicGenreService = musicGenreService;
+    }
 
     @Autowired
     public void setLoginService(LoginService loginService) {
         this.loginService = loginService;
+    }
+
+    @Autowired
+    public void setUserDtoToUser(UserDtoToUser userDtoToUser) {
+        this.userDtoToUser = userDtoToUser;
     }
 
     @Autowired
@@ -86,18 +106,34 @@ public class RestUserController {
     @RequestMapping(method = RequestMethod.POST, path = "/login")
     public ResponseEntity<UserDto> login(@Valid @RequestBody User user, BindingResult bindingResult) {
 
-        loginService.verification(user.getUsername(), user.getPassword());
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        if(loginService.verification(user.getUsername(), user.getPassword())){
+            return new ResponseEntity<>(userToUserDto.convert(user), HttpStatus.OK);
+        }
+
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/vote")
+    public ResponseEntity<Map<User, MusicGenre>> vote(@Valid @RequestBody UserDto userDto, MusicGenre musicGenre, BindingResult bindingResult) {
+        User user = userDtoToUser.convert(userDto);
+
 
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        if (loginService.isConfirmed()) {
-            User user1 = loginService.getLoggedUser();
-            return new ResponseEntity<>(userToUserDto.convert(user1), HttpStatus.OK);
+        if (user.getMusicGenre() == musicGenre) {
+            return new ResponseEntity<>(HttpStatus.CONTINUE);
         }
-
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        user.setMusicGenre(musicGenre);
+        musicGenreService.addVote(user, musicGenre);
+        return new ResponseEntity<>(HttpStatus.OK);
 
     }
 
