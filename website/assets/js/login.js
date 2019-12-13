@@ -18,6 +18,7 @@ $(document).ready(function(){
 
   $('#register-submit').click(function(event){
     function addSuccess(data){
+      
       console.log(data);
       $('#register').hide();
       $('#login').show();
@@ -58,6 +59,25 @@ function authenticate(){
   }
 
   function loginError(data){
+
+    var toast = $('.toast');
+    toast.empty();
+    let str =  '<div class="toast-header">'+
+    '<strong class="mr-auto">Error</strong>'+
+    '<button type="button" id="close-toast" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">'+
+    '<span aria-hidden="true">&times;</span>'+
+    '</button>'+
+    '</div>'+
+    '<div class="toast-body">'+
+    'Invalid Credentials'+
+    '</div>'+
+    '</div>';
+    $(str).appendTo(toast);
+
+    $('#close-toast').click(function(){
+      toast.empty();
+    });
+
     console.log("error");
     console.log($("#username-login").val());
     console.log($("#password-login").val());

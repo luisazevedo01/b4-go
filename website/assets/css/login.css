@@ -24,4 +24,8 @@ label {
     font-weight: bold;
     font-size: 100px;
     
-  }
+}
+
+.toast {
+    opacity: 1;
+}
