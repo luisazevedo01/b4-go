@@ -1,5 +1,6 @@
 package org.academiadecodigo.thunderstructs.services;
 
+import org.academiadecodigo.thunderstructs.dto.UserDto;
 import org.academiadecodigo.thunderstructs.models.Club;
 import org.academiadecodigo.thunderstructs.models.User;
 import org.academiadecodigo.thunderstructs.utility.ClubDB;
@@ -28,23 +29,21 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public void addUserToClub(User user, Integer clubId) {
+    public void addUserToClub(UserDto userDto, Integer clubId) {
 
-        if (user.getClubId() != null) {
 
-            removeUser(user, user.getClubId());
-        }
+
 
         Club club = clubDB.getClubs().get(clubId);
-        club.getUserList().put(user.getUsername(), user);
+        club.getUserList().put(userDto.getUsername(), userDto);
 
     }
 
     @Override
-    public void removeUser(User user, Integer clubId) {
+    public void removeUser(UserDto userDto, Integer clubId) {
 
         Club club = clubDB.getClubs().get(clubId);
-        club.getUserList().remove(user.getUsername());
+        club.getUserList().remove(userDto.getUsername());
 
     }
 }

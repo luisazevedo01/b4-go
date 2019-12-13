@@ -1,5 +1,6 @@
 package org.academiadecodigo.thunderstructs.services;
 
+import org.academiadecodigo.thunderstructs.dto.UserDto;
 import org.academiadecodigo.thunderstructs.models.Club;
 import org.academiadecodigo.thunderstructs.models.User;
 
@@ -24,8 +25,8 @@ public interface ClubService {
      * After user clicks GO he is inserted into the clubs users
      * @param user
      */
-    void addUserToClub(User user, Integer clubId);
+    void addUserToClub(UserDto user, Integer clubId);
 
-    void removeUser(User user, Integer clubId);
+    void removeUser(UserDto user, Integer clubId);
 
 }
