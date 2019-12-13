@@ -1,0 +1,27 @@
+.center-page{
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+label {
+    color: white;
+}
+
+.card {
+    border-radius: 5px;
+    padding: 40px 40px;
+    background-color: rgba(0,0,0,0.3);
+}
+
+.clickable:hover {
+    cursor: pointer;
+}
+.slogan {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 100px;
+    
+  }

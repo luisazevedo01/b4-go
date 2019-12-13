@@ -26,7 +26,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(String username) {
-
         return userMock.getUsersMap().get(username);
     }
 
