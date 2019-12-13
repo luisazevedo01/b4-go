@@ -87,13 +87,18 @@ public class RestClubController {
     public ResponseEntity<UserDto> goToClub(@Valid @RequestBody UserDto userDto, BindingResult bindingResult, @PathVariable Integer clubId){
 
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(HttpStatus.INSUFFICIENT_STORAGE);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
+/*        if (true) {
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        }*/
+
+        //User user = userService.getUserById(username);
         User user = userDtoToUser.convert(userDto);
 
-        if(userDto == null){
-            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        if(user == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         //UserDto userDto = userToUserDto.convert(user);
