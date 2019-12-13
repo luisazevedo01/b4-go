@@ -12,10 +12,12 @@ $(document).ready(function(){
 
     getClubDetails(urlParam("club"));
     getGenres();
+    updateVotes();
 
 });
 
 function getClubDetails(club){
+    $('.club-details').empty();
 
     function successCallback (data) {
         
@@ -27,16 +29,16 @@ function getClubDetails(club){
         });
 
         let clubDetails = $('.club-details');
-        let details = '<div class="card text-center">'+
+        let details = '<div class="col-xs-12 col-md-7 card text-center">'+
         '<div class="card-header">'+ data.name +'</div>'+
         '<div class="card-body">'+
         '<img src="'+ data.image +'" class="card-img-top" style="max-width:200px; margin-bottom:20px;">'+
         '<p class="card-text">'+ data.description +'</p>'+
-        '<button type="button" class="btn btn-primary mr-5" id="join">Join</button>'+
+        '<button type="button" class="btn btn-primary mr-5" id="join">'+userInList(data.userList)+'</button>'+
         '<button type="button" class="btn btn-warning" id="back">Go Back</button>'+
         '</div>'+
         '</div>'+
-        '<div class="card mt-5"><ul class="list-group">'+ str +'</ul></div>';
+        '<div class="col-xs-12 col-md-5 card"><ul class="list-group">'+ str +'</ul></div>';
         
         $(details).appendTo(clubDetails);
 
@@ -54,63 +56,13 @@ function getClubDetails(club){
     }
     
     $.ajax({
-        url: 'http://192.168.1.104:8080/go-go/club/ '+ club,
+        url: 'http://192.168.1.105:8080/go-go/club/ '+ club,
         async: true,
         data:{get_param : 'id', get_param : 'name', get_param : 'musicGenre', get_param : 'userList'},
         success: successCallback,
         error: errorCallback
     });
 }
-/*
-function getVotes(){
-
-    function successCallback (data) {
-        console.log(data);
-        console.log(data.name);
-
-        $('#club-name').text(data.name);
-        str = "";
-        str +=  '<div class="card-header">List of Users</div>';
-        $.each(data.userList, function( index, value ) {
-            str += '<li class="list-group-item">'+value.name+'</li>';
-        });
-
-        console.log(str);
-
-        let clubDetails = $('.club-details');
-        let details = '<div class="card text-center">'+
-        '<div class="card-header">'+ data.name +'</div>'+
-        '<div class="card-body">'+
-        '<h5 class="card-title">Special title treatment</h5>'+
-        '<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>'+
-        '<button type="button" class="btn btn-primary mr-5" id="join">Join</button>'+
-        '<button type="button" class="btn btn-primary" id="back">Go Back</button>'+
-        '</div>'+
-        '</div>'+
-        '<div class="card mt-5"><ul class="list-group">'+ str +'</ul></div>';
-        
-        $(details).appendTo(clubDetails);
-
-        $('#back').click(function(event){
-            console.log("um dois");
-            window.location.href = "index.html";
-        });
-
-    }
-
-    function errorCallback(){
-        alert("There was an error loading clubs");
-    }
-    
-    $.ajax({
-        url: 'http://192.168.1.104:8080/go-go/user/vote',
-        async: true,
-        data:{get_param : 'id', get_param : 'name', get_param : 'musicGenre', get_param : 'userList'},
-        success: successCallback,
-        error: errorCallback
-    });
-
-}*/
 
 function getCustomerDto(){
     userDto = null;
@@ -156,41 +108,32 @@ function getGenres(){
 
 
 
-        $('<button type="button" class="btn btn-primary" id="submit-genre">Submit</button>').appendTo(select);
+        $('<button type="button" class="btn btn-primary mt-4" id="submit-genre">Submit</button>').appendTo(select);
 
         $('#submit-genre').click(function(event){
-
+            
             if($("input[type='radio'].options").is(':checked')) {
-                var vote = $("input[type='radio'].options:checked").val();
+                vote = $("input[type='radio'].options:checked").val();
                 console.log(vote);
             }
 
-            function voteSuccess(data){
-                console.log(data);
-                localStorage.setItem('username',$('#username-login').val());
-                window.location.href = "index.html";
-              }
+            function successCallback(data){
+                userDto = data;
+                voteOnGenre(vote, data);
+            }
+        
+            function errorCallback(){
+                console.log("ERRO GET GENRES");
+            }
             
-              function voteError(data){
-                  console.log(data);
-                console.log("error");
-                console.log(vote);
-                console.log(localStorage.getItem('username'));
-              }
-              
-              $.ajax({
-                url: 'http://192.168.1.104:8080/go-go/user/vote/',
-                type: 'POST',
+            $.ajax({
+                url: 'http://192.168.1.105:8080/go-go/user/'+localStorage.getItem('username'),
                 async: true,
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    username: localStorage.getItem('username'),
-                    musicGenre: vote
-                }),
-                success: voteSuccess,
-                error: voteError
-              });
-
+                data:{},
+                success: successCallback,
+                error: errorCallback
+            });
+            
 
         });
     }
@@ -214,6 +157,7 @@ function joinClub(dto){
     function successCallback (data) {
         console.log(dto);
         console.log(data.name);
+        getClubDetails(urlParam("club"));
     }
 
     function errorCallback(){
@@ -226,10 +170,101 @@ function joinClub(dto){
         async: true,
         contentType: 'application/json',
         data: JSON.stringify({
-            username: dto
+            username: dto.username,
+            name: dto.name,
+            club: dto.club
         }),
         success: successCallback,
         error: errorCallback
     });
 }
 
+function userInList(data){
+    var string = "Go"
+
+    $.each(data, function( index, value ) {
+        if(value.username === localStorage.getItem('username')){
+            console.log("contains!!!!!")
+            string = "Leave";
+        }
+    });
+    
+    return string;
+
+}
+
+function updateVotes(){
+
+    function successCallback (data) {
+        let container = $('.votes-results');
+
+
+
+        console.log(data);
+    }
+
+    function errorCallback(){
+        console.log("error joining club");
+    }
+    
+    $.ajax({
+        url: 'http://192.168.1.104:8080/go-go/user/show-votes/',
+        type: 'GET',
+        async: true,
+        data: {},
+        success: successCallback,
+        error: errorCallback
+    });
+
+}
+
+function getCustomer(){
+    userDto = null;
+
+    function successCallback(data){
+        console.log("DONE "+ data);
+        return data;
+    }
+
+    function errorCallback(){
+        console.log("ERRO GET GENRES");
+    }
+    
+    $.ajax({
+        url: 'http://192.168.1.105:8080/go-go/user/'+localStorage.getItem('username'),
+        async: true,
+        data:{},
+        success: successCallback,
+        error: errorCallback
+    });
+}
+
+function voteOnGenre(vote, userDto){
+    var user = userDto;
+    function voteSuccess(data){
+        console.log(vote)
+        console.log(data.firstname);
+        updateVotes();
+      }
+    
+      function voteError(data){
+          console.log(data);
+        console.log("error");
+        console.log(vote);
+        console.log(localStorage.getItem('username'));
+      }
+      
+      $.ajax({
+        url: 'http://192.168.1.105:8080/go-go/user/vote/'+vote ,
+        type: 'PUT',
+        async: true,
+        contentType: 'application/json',
+        data: JSON.stringify({
+            username: user.username,
+            name: user.name,
+            club: user.club
+        }),
+        success: voteSuccess,
+        error: voteError
+      });
+}

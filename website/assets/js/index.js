@@ -49,7 +49,7 @@ function getGenres(){
     }
     
     $.ajax({
-        url: 'http://192.168.1.104:8080/go-go/genre/',
+        url: 'http://192.168.1.105:8080/go-go/genre/',
         async: true,
         data:{},
         success: successCallback,
@@ -71,7 +71,7 @@ function getAllClubs(){
     }
     
     $.ajax({
-        url: 'http://192.168.1.104:8080/go-go/club/',
+        url: 'http://192.168.1.105:8080/go-go/club/',
         async: true,
         data:{get_param : 'id', get_param : 'name', get_param : 'musicGenre', get_param : 'userList'},
         success: successCallback,
@@ -87,7 +87,7 @@ function getGenreClubs(genre){
             generateCards(data);
         } else {
             let cards = $('#clubs');
-            $('<div class="col-md-12 text-center mt-5"> No clubs found with this genre </div>').appendTo(cards);
+            $('<div class="col-md-12 text-center mt-5 text-white"> No clubs found with this genre </div>').appendTo(cards);
         }
     }
 
@@ -96,7 +96,7 @@ function getGenreClubs(genre){
     }
     
     $.ajax({
-        url: 'http://192.168.1.104:8080/go-go/club/genre/'+genre,
+        url: 'http://192.168.1.105:8080/go-go/club/genre/'+genre,
         async: true,
         data:{get_param : 'id', get_param : 'name', get_param : 'musicGenre', get_param : 'userList'},
         success: successCallback,
