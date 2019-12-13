@@ -18,6 +18,7 @@ public class UserDtoToUser {
         user.setUsername(userDto.getUsername());
         user.setClub(userDto.getClub());
         user.setPassword(userService.getUserById(userDto.getUsername()).getPassword());
+        user.setClubId(userService.getUserById(userDto.getUsername()).getClubId());
 
         return user;
 

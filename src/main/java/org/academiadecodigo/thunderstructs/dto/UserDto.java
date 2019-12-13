@@ -20,7 +20,7 @@ public class UserDto {
     @Size(min = 3 , max = 50)
     private String name;
 
-    private Club club;
+    private String club;
 
     public String getUsername() {
         return username;
@@ -38,11 +38,12 @@ public class UserDto {
         this.name = name;
     }
 
-    public Club getClub() {
+    public String getClub() {
         return club;
     }
 
-    public void setClub(Club club) {
+    public void setClub(String club) {
         this.club = club;
     }
+
 }
