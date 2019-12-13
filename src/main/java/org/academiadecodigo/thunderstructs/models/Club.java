@@ -9,6 +9,8 @@ public class Club {
 
     private Integer id;
     private String name;
+    private String image;
+    private String description;
     private MusicGenre musicGenre;
     private Map<String, User> userList;
 
@@ -42,5 +44,21 @@ public class Club {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
