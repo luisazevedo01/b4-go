@@ -1,3 +1,7 @@
+if(localStorage.getItem('username') != null){
+  window.location.replace("index.html");
+}
+
 $(document).ready(function(){
 
   $('#register').hide();

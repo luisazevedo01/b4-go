@@ -1,3 +1,7 @@
+if(localStorage.getItem('username') == null){
+    window.location.replace("login.html");
+}
+
 $(document).ready(function(){
 
     urlParam = function (name) {
@@ -8,8 +12,6 @@ $(document).ready(function(){
 
     getClubDetails(urlParam("club"));
     getGenres();
-
-
 
 });
 
@@ -43,6 +45,10 @@ function getClubDetails(club){
         
         $(details).appendTo(clubDetails);
 
+        $('#join').click(function(event){
+            joinClub();
+        });
+
         $('#back').click(function(event){
             console.log("um dois");
             window.location.href = "index.html";
@@ -54,7 +60,7 @@ function getClubDetails(club){
     }
     
     $.ajax({
-        url: 'http://192.168.1.105:8080/go-go/club/ '+ club,
+        url: 'http://192.168.1.104:8080/go-go/club/ '+ club,
         async: true,
         data:{get_param : 'id', get_param : 'name', get_param : 'musicGenre', get_param : 'userList'},
         success: successCallback,
@@ -96,6 +102,7 @@ function getVotes(){
             console.log("um dois");
             window.location.href = "index.html";
         });
+
     }
 
     function errorCallback(){
@@ -103,16 +110,37 @@ function getVotes(){
     }
     
     $.ajax({
-        url: 'http://192.168.1.105:8080/go-go/user/vote',
+        url: 'http://192.168.1.104:8080/go-go/user/vote',
         async: true,
         data:{get_param : 'id', get_param : 'name', get_param : 'musicGenre', get_param : 'userList'},
         success: successCallback,
         error: errorCallback
     });
 
+}
 
+function joinClub(){
 
+    function successCallback (data) {
+        console.log(data);
+        console.log(data.name);
+    }
 
+    function errorCallback(){
+        console.log("error joining club");
+    }
+    
+    $.ajax({
+        url: 'http://192.168.1.104:8080/go-go/club/' + urlParam("club"),
+        type: 'PUT',
+        async: true,
+        contentType: 'application/json',
+        data: JSON.stringify({
+            username: localStorage.getItem('username')
+        }),
+        success: successCallback,
+        error: errorCallback
+    });
 }
 
 function getGenres(){
@@ -178,7 +206,7 @@ function getGenres(){
     }
     
     $.ajax({
-        url: 'http://192.168.1.105:8080/go-go/genre/',
+        url: 'http://192.168.1.104:8080/go-go/genre/',
         async: true,
         data:{},
         success: successCallback,

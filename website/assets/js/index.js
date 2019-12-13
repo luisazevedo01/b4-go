@@ -1,3 +1,7 @@
+if(localStorage.getItem('username') == null){
+    window.location.replace("login.html");
+}
+
 //SELECT GET CURRENT OPTION
 $('#selectGenre').on('change', function(e) {
     console.log(this.options[e.target.selectedIndex].text);
@@ -16,6 +20,9 @@ $('#selectGenre').on('change', function(e) {
 });
 
 $(document).ready(function(){
+
+
+
     getGenres();
     getAllClubs();
 });
@@ -42,7 +49,7 @@ function getGenres(){
     }
     
     $.ajax({
-        url: 'http://192.168.1.105:8080/go-go/genre/',
+        url: 'http://192.168.1.104:8080/go-go/genre/',
         async: true,
         data:{},
         success: successCallback,
@@ -78,7 +85,7 @@ function getAllClubs(){
     }
     
     $.ajax({
-        url: 'http://192.168.1.105:8080/go-go/club/',
+        url: 'http://192.168.1.104:8080/go-go/club/',
         async: true,
         data:{get_param : 'id', get_param : 'name', get_param : 'musicGenre', get_param : 'userList'},
         success: successCallback,
@@ -118,7 +125,7 @@ function getGenreClubs(genre){
     }
     
     $.ajax({
-        url: 'http://192.168.1.105:8080/go-go/club/genre/'+genre,
+        url: 'http://192.168.1.104:8080/go-go/club/genre/'+genre,
         async: true,
         data:{get_param : 'id', get_param : 'name', get_param : 'musicGenre', get_param : 'userList'},
         success: successCallback,
