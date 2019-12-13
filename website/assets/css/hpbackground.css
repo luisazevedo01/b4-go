@@ -4,7 +4,7 @@ body{
 
 body::after {
   content: "";
-  background: url(../img/back.jpg);
+  background: url(../img/disco.jpg);
   background-size: cover;
   background-position-y: 50%;
   opacity: 0.5;
@@ -14,8 +14,4 @@ body::after {
   right: 0;
   position: absolute;
   z-index: -1;   
-}
-
-#clubs {
-  margin-top: 200px;
 }
