@@ -19,6 +19,11 @@ public class MusicGenreServiceImpl implements MusicGenreService {
     public MusicGenreServiceImpl() {
         voting = new HashMap<>();
         counters = new HashMap<>();
+        counters.put(MusicGenre.POP, 0);
+        counters.put(MusicGenre.PIMBA, 0);
+        counters.put(MusicGenre.RAP, 0);
+        counters.put(MusicGenre.JAZZ, 0);
+        counters.put(MusicGenre.ROCK, 0);
     }
 
     @Autowired
@@ -34,11 +39,6 @@ public class MusicGenreServiceImpl implements MusicGenreService {
     @Override
     public MusicGenre getPopularMusic() {
 
-        counters.put(MusicGenre.POP, 0);
-        counters.put(MusicGenre.PIMBA, 0);
-        counters.put(MusicGenre.RAP, 0);
-        counters.put(MusicGenre.JAZZ, 0);
-        counters.put(MusicGenre.ROCK, 0);
 
         for (MusicGenre musicGenre : voting.values()) {
             int i = counters.get(musicGenre);
@@ -78,5 +78,10 @@ public class MusicGenreServiceImpl implements MusicGenreService {
     @Override
     public Map<User, MusicGenre> getVotes() {
         return voting;
+    }
+
+    @Override
+    public Map<MusicGenre, Integer> getCounters() {
+        return counters;
     }
 }

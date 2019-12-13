@@ -117,29 +117,27 @@ public class RestUserController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/vote/{musicGenre}")
-    public ResponseEntity<User> vote(@Valid @RequestBody String username, BindingResult bindingResult, @PathVariable String musicGenre) {
+    public ResponseEntity<User> vote(@Valid @RequestBody UserDto userDto, BindingResult bindingResult, @PathVariable String musicGenre) {
+        User user = userDtoToUser.convert(userDto);
 
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        User user = userService.getUserById(username);
         for (MusicGenre music : MusicGenre.values()) {
             if (music.toString().equals(musicGenre)) {
                 user.setMusicGenre(music);
                 musicGenreService.addVote(user, music);
-                return new ResponseEntity<>(HttpStatus.OK);
+                return new ResponseEntity<>(user, HttpStatus.OK);
             }
         }
 
-        return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.CONTINUE);
 
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}/win-votation")
     public ResponseEntity<MusicGenre> getUser(@PathVariable int id) {
-
-        musicGenreService.getPopularMusic();
 
         if (musicGenreService.winnerValue() >= 5) {
             return new ResponseEntity<>(musicGenreService.changeGenre(id), HttpStatus.OK);
@@ -152,5 +150,11 @@ public class RestUserController {
     public ResponseEntity<Map<User, MusicGenre>> showVotes() {
 
         return new ResponseEntity<>(musicGenreService.getVotes(), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/bar-counter")
+    public ResponseEntity<Map<MusicGenre, Integer>> barCounter() {
+        musicGenreService.getPopularMusic();
+        return new ResponseEntity<>(musicGenreService.getCounters(), HttpStatus.ACCEPTED);
     }
 }
