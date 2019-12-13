@@ -2,10 +2,8 @@ package org.academiadecodigo.thunderstructs.services;
 
 import org.academiadecodigo.thunderstructs.models.User;
 import org.academiadecodigo.thunderstructs.utility.MusicGenre;
-import org.academiadecodigo.thunderstructs.utility.Voting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.Map;
 

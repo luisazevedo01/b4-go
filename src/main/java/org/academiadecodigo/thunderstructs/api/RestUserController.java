@@ -3,7 +3,6 @@ package org.academiadecodigo.thunderstructs.api;
 import org.academiadecodigo.thunderstructs.dto.UserDto;
 import org.academiadecodigo.thunderstructs.dto.UserDtoToUser;
 import org.academiadecodigo.thunderstructs.dto.UserToUserDto;
-import org.academiadecodigo.thunderstructs.models.Club;
 import org.academiadecodigo.thunderstructs.models.User;
 import org.academiadecodigo.thunderstructs.services.*;
 import org.academiadecodigo.thunderstructs.utility.MusicGenre;
@@ -12,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.LinkedList;
 import java.util.List;
@@ -120,9 +118,8 @@ public class RestUserController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/vote")
-    public ResponseEntity<Map<User, MusicGenre>> vote(@Valid @RequestBody UserDto userDto, MusicGenre musicGenre, BindingResult bindingResult) {
-        User user = userDtoToUser.convert(userDto);
-
+    public ResponseEntity<Map<User, MusicGenre>> vote(@Valid @RequestBody String username, MusicGenre musicGenre, BindingResult bindingResult) {
+        User user = userService.getUserById(username);
 
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -139,6 +136,8 @@ public class RestUserController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}/win-votation")
     public ResponseEntity<MusicGenre> getUser(@PathVariable int id) {
+
+        musicGenreService.getPopularMusic();
 
         if (clubService.getClub(id).getUserList().size() * 0.5 < musicGenreService.winnerValue()) {
             return new ResponseEntity<>(musicGenreService.changeGenre(id), HttpStatus.OK);
