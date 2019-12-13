@@ -112,25 +112,26 @@ public class RestUserController {
             return new ResponseEntity<>(userToUserDto.convert(user), HttpStatus.OK);
         }
 
-
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/vote")
-    public ResponseEntity<Map<User, MusicGenre>> vote(@Valid @RequestBody String username, MusicGenre musicGenre, BindingResult bindingResult) {
+    public ResponseEntity<Map<User, MusicGenre>> vote(@Valid @RequestBody String username, String musicGenre, BindingResult bindingResult) {
         User user = userService.getUserById(username);
 
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        if (user.getMusicGenre() == musicGenre) {
-            return new ResponseEntity<>(HttpStatus.CONTINUE);
+        for (MusicGenre music : MusicGenre.values()) {
+            if(music.toString().equals(musicGenre)){
+                user.setMusicGenre(music);
+                musicGenreService.addVote(user,music);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
         }
-        user.setMusicGenre(musicGenre);
-        musicGenreService.addVote(user, musicGenre);
-        return new ResponseEntity<>(HttpStatus.OK);
+
+        return new ResponseEntity<>(HttpStatus.CONTINUE);
 
     }
 
@@ -146,5 +147,9 @@ public class RestUserController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/show-votes")
+    public ResponseEntity<Map<User, MusicGenre>> showVotes() {
 
+        return new ResponseEntity<>(musicGenreService.getVotes(), HttpStatus.NOT_FOUND);
+    }
 }

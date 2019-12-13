@@ -74,4 +74,9 @@ public class MusicGenreServiceImpl implements MusicGenreService {
     public int winnerValue() {
         return value;
     }
+
+    @Override
+    public Map<User, MusicGenre> getVotes() {
+        return voting;
+    }
 }
