@@ -115,24 +115,23 @@ public class RestUserController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/vote/{musicGenre}")
-    public ResponseEntity<User> vote(@Valid @RequestBody String username, BindingResult bindingResult, @PathVariable String musicGenre) {
-        User user = userService.getUserById(username);
+    @RequestMapping(method = RequestMethod.PUT, path = "/vote/{musicGenre}")
+    public ResponseEntity<User> vote(@Valid @RequestBody UserDto userDto, BindingResult bindingResult, @PathVariable String musicGenre) {
+        User user = userDtoToUser.convert(userDto);
 
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
 
-/*        for (MusicGenre music : MusicGenre.values()) {
+        for (MusicGenre music : MusicGenre.values()) {
             if(music.toString().equals(musicGenre)){
                 user.setMusicGenre(music);
                 musicGenreService.addVote(user,music);
-                return new ResponseEntity<>(HttpStatus.OK);
+                return new ResponseEntity<>(user, HttpStatus.OK);
             }
         }
 
-        return new ResponseEntity<>(HttpStatus.CONTINUE);*/
+        return new ResponseEntity<>(HttpStatus.CONTINUE);
 
     }
 
