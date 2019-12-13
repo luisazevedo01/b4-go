@@ -18,9 +18,7 @@ $(document).ready(function(){
 function getClubDetails(club){
 
     function successCallback (data) {
-        console.log(data);
-        console.log(data.name);
-
+        
         $('#club-name').text(data.name);
         str = "";
         str +=  '<div class="card-header">List of Users</div>';
@@ -28,16 +26,14 @@ function getClubDetails(club){
             str += '<li class="list-group-item">'+value.name+'</li>';
         });
 
-        console.log(str);
-
         let clubDetails = $('.club-details');
         let details = '<div class="card text-center">'+
         '<div class="card-header">'+ data.name +'</div>'+
         '<div class="card-body">'+
-        '<img src="'+ data.image +'" class="card-img-top" style="max-width:200px">'+
+        '<img src="'+ data.image +'" class="card-img-top" style="max-width:200px; margin-bottom:20px;">'+
         '<p class="card-text">'+ data.description +'</p>'+
         '<button type="button" class="btn btn-primary mr-5" id="join">Join</button>'+
-        '<button type="button" class="btn btn-primary" id="back">Go Back</button>'+
+        '<button type="button" class="btn btn-warning" id="back">Go Back</button>'+
         '</div>'+
         '</div>'+
         '<div class="card mt-5"><ul class="list-group">'+ str +'</ul></div>';
@@ -45,11 +41,10 @@ function getClubDetails(club){
         $(details).appendTo(clubDetails);
 
         $('#join').click(function(event){
-            joinClub();
+            getCustomerDto();
         });
 
         $('#back').click(function(event){
-            console.log("um dois");
             window.location.href = "index.html";
         });
     }
@@ -117,28 +112,29 @@ function getVotes(){
 
 }*/
 
-function joinClub(){
+function getCustomerDto(){
+    userDto = null;
 
-    function successCallback (data) {
-        console.log(data);
-        console.log(data.name);
+    function successCallback(data){
+        console.log("DONE "+ data);
+        userDto = data;
+        joinClub(data);
     }
 
     function errorCallback(){
-        console.log("error joining club");
+        console.log("ERRO GET GENRES");
     }
     
     $.ajax({
-        url: 'http://192.168.1.104:8080/go-go/club/' + urlParam("club"),
-        type: 'PUT',
+        url: 'http://192.168.1.105:8080/go-go/user/'+localStorage.getItem('username'),
         async: true,
-        contentType: 'application/json',
-        data: JSON.stringify({
-            username: localStorage.getItem('username')
-        }),
+        data:{},
         success: successCallback,
         error: errorCallback
     });
+
+
+
 }
 
 function getGenres(){
@@ -204,12 +200,36 @@ function getGenres(){
     }
     
     $.ajax({
-        url: 'http://192.168.1.104:8080/go-go/genre/',
+        url: 'http://192.168.1.105:8080/go-go/genre/',
         async: true,
         data:{},
         success: successCallback,
         error: errorCallback
     });
     
+}
+
+function joinClub(dto){
+
+    function successCallback (data) {
+        console.log(dto);
+        console.log(data.name);
+    }
+
+    function errorCallback(){
+        console.log("error joining club");
+    }
+    
+    $.ajax({
+        url: 'http://192.168.1.105:8080/go-go/club/' + urlParam("club"),
+        type: 'PUT',
+        async: true,
+        contentType: 'application/json',
+        data: JSON.stringify({
+            username: dto
+        }),
+        success: successCallback,
+        error: errorCallback
+    });
 }
 
