@@ -1,6 +1,8 @@
 package org.academiadecodigo.thunderstructs.services;
 
+import org.academiadecodigo.thunderstructs.dto.UserDto;
 import org.academiadecodigo.thunderstructs.models.Club;
+import org.academiadecodigo.thunderstructs.models.User;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -17,13 +19,14 @@ public interface ClubService {
      * Returns the club with specified id (which has its info and users, etc...)
      * @return
      */
-    Club get(Integer id);
+    Club getClub(Integer id);
 
     /**
      * After user clicks GO he is inserted into the clubs users
-     * @param username
+     * @param user
      */
-    void addUserToClub(String username);
+    void addUserToClub(UserDto user, Integer clubId);
 
+    void removeUser(UserDto user, Integer clubId);
 
 }

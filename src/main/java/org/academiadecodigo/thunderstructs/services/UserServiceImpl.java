@@ -1,6 +1,6 @@
 package org.academiadecodigo.thunderstructs.services;
 
-import org.academiadecodigo.thunderstructs.UserMock;
+import org.academiadecodigo.thunderstructs.utility.UserMock;
 import org.academiadecodigo.thunderstructs.models.Club;
 import org.academiadecodigo.thunderstructs.models.User;
 import org.academiadecodigo.thunderstructs.utility.ClubDB;
@@ -40,4 +40,10 @@ public class UserServiceImpl implements UserService {
 
         return clubDB.getClubs().get(option.getId());
     }
+
+    @Override
+    public void addUser(User user) {
+        userMock.getUsersMap().put(user.getUsername(), user);
+    }
+
 }

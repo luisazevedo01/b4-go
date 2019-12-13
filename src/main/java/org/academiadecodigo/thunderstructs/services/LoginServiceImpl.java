@@ -1,6 +1,6 @@
 package org.academiadecodigo.thunderstructs.services;
 
-import org.academiadecodigo.thunderstructs.UserMock;
+import org.academiadecodigo.thunderstructs.utility.UserMock;
 import org.academiadecodigo.thunderstructs.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 public class LoginServiceImpl implements LoginService {
 
     private UserMock userMock;
-    private User loggedUser;
-    private boolean confirmation;
 
     @Autowired
     public void setUserMock(UserMock userMock) {
@@ -18,23 +16,14 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public User verification(String username, String password) {
+    public boolean verification(String username, String password) {
         for (User user : userMock.getUsersMap().values()) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                confirmation = true;
-                loggedUser = user;
-            } else {
-                loggedUser = null;
+                return true;
             }
         }
-        return loggedUser;
+
+        return false;
     }
 
-    public boolean isConfirmed() {
-        return confirmation;
-    }
-
-    public User getLoggedUser() {
-        return loggedUser;
-    }
 }

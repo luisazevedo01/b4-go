@@ -12,6 +12,8 @@ public interface UserService {
 
     Club userClub(Club option);
 
+    void addUser(User user);
+
 
 
 }
