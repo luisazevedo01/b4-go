@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.LinkedList;
 import java.util.List;
@@ -117,22 +118,21 @@ public class RestUserController {
 
     @RequestMapping(method = RequestMethod.POST, path = "/vote/{musicGenre}")
     public ResponseEntity<User> vote(@Valid @RequestBody String username, BindingResult bindingResult, @PathVariable String musicGenre) {
-        User user = userService.getUserById(username);
 
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
 
-/*        for (MusicGenre music : MusicGenre.values()) {
-            if(music.toString().equals(musicGenre)){
+        User user = userService.getUserById(username);
+        for (MusicGenre music : MusicGenre.values()) {
+            if (music.toString().equals(musicGenre)) {
                 user.setMusicGenre(music);
-                musicGenreService.addVote(user,music);
+                musicGenreService.addVote(user, music);
                 return new ResponseEntity<>(HttpStatus.OK);
             }
         }
 
-        return new ResponseEntity<>(HttpStatus.CONTINUE);*/
+        return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
 
     }
 
@@ -141,16 +141,16 @@ public class RestUserController {
 
         musicGenreService.getPopularMusic();
 
-        if (clubService.getClub(id).getUserList().size() * 0.5 < musicGenreService.winnerValue()) {
+        if (musicGenreService.winnerValue() >= 5) {
             return new ResponseEntity<>(musicGenreService.changeGenre(id), HttpStatus.OK);
 
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/show-votes")
     public ResponseEntity<Map<User, MusicGenre>> showVotes() {
 
-        return new ResponseEntity<>(musicGenreService.getVotes(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(musicGenreService.getVotes(), HttpStatus.ACCEPTED);
     }
 }
