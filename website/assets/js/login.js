@@ -21,9 +21,6 @@ $(document).ready(function(){
 
     function addError(data){
         console.log(data);
-        console.log($('#username'.val()));
-        console.log($('#password'.val()));
-        console.log($('#name'.val()));
       }
       
     $.ajax({
@@ -43,38 +40,35 @@ $(document).ready(function(){
   });
 
   $('#login-submit').click(function(event){
+    authenticate();
 
-    $("#btnSubmit").click(function () {
-      //collect userName and password entered by users
-      var userName = $("#username").val();
-      var password = $("#password").val();
-
-
-      });
-
-    function addSuccess(data){
-      console.log(data);
-      location.reload();
-    }
-
-    function addError(data){
-        console.log(2);
-    }
-    
-    $.ajax({
-        url: 'http://192.168.1.105:8080/user/register/',
-        type: 'POST',
-        async: true,
-        contentType: 'application/json',
-        data: JSON.stringify({
-            username: $('#username').val(),
-            password: $('#password').val(),
-            name: $('#name').val(),
-            club: null
-        }),
-        success: addSuccess,
-        error: addError
-    });
   });
 
 })
+
+function authenticate(){
+
+  function loginSuccess(data){
+    localStorage.setItem('username',$('#username-login').val());
+    window.location.href = "index.html";
+  }
+
+  function loginError(data){
+    console.log("error");
+    console.log($("#username-login").val());
+    console.log($("#password-login").val());
+  }
+  
+  $.ajax({
+    url: 'http://192.168.1.104:8080/go-go/user/login/',
+    type: 'POST',
+    async: true,
+    contentType: 'application/json',
+    data: JSON.stringify({
+      username: $('#username-login').val(),
+      password: $('#password-login').val()
+    }),
+    success: loginSuccess,
+    error: loginError
+  });
+}

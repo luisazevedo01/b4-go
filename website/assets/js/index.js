@@ -1,11 +1,18 @@
 //SELECT GET CURRENT OPTION
 $('#selectGenre').on('change', function(e) {
     console.log(this.options[e.target.selectedIndex].text);
+    console.log(this.options[e.target.selectedIndex].index);
+    
     let clubsDiv = $('#clubs');
+    
+    if(this.options[e.target.selectedIndex].index == 0){
+        clubsDiv.empty();
+        getAllClubs();
+        return;
+    }
+
     clubsDiv.empty();
-
     getGenreClubs(this.options[e.target.selectedIndex].text);
-
 });
 
 $(document).ready(function(){
@@ -31,7 +38,7 @@ function getGenres(){
     }
 
     function errorCallback(){
-        getAllClubs();
+        console.log("ERRO GET GENRES");
     }
     
     $.ajax({
@@ -53,11 +60,11 @@ function getAllClubs(){
             
             let card = '<div class="col">'+
             '<div class="card"> '+
-            '<img src="https://i.stack.imgur.com/jZhAM.png" class="card-img-top" alt="..."> '+
+            '<img src="https://i.stack.imgur.com/jZhAM.png" class="card-img-top" alt=""> '+
             '<div class="card-body">'+
             '<h5 class="card-title">'+ element.name +'</h5>' +
             '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>'+
-            '<a href="#" class="btn btn-primary">Go somewhere</a>'+
+            '<a href="club.html?club='+ element.id + '" class="btn btn-primary club-button">View Details</a>'+
             '</div></div></div>';
             
             $(card).appendTo(cards);
@@ -90,7 +97,7 @@ function getGenreClubs(genre){
                 
                 let card = '<div class="col">'+
                 '<div class="card"> '+
-                '<img src="" class="card-img-top" alt="..."> '+
+                '<img src="https://i.stack.imgur.com/jZhAM.png" class="card-img-top" alt="..."> '+
                 '<div class="card-body">'+
                 '<h5 class="card-title">'+ element.name +'</h5>' +
                 '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>'+
