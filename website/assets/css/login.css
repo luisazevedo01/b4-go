@@ -1,23 +1,4 @@
-  body{
-      background-color: black;
-  }
-
-  body::after {
-    content: "";
-    background: url(../img/delmans.jpg);
-    background-size: cover;
-    background-position-y: 50%;
-    opacity: 0.5;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;   
-}
-
 .center-page{
-
     width: 100%;
     position: absolute;
     top: 50%;
@@ -27,4 +8,14 @@
 
 label {
     color: white;
+}
+
+.card {
+    border-radius: 5px;
+    padding: 40px 40px;
+    background-color: rgba(0,0,0,0.3);
+}
+
+.clickable:hover {
+    cursor: pointer;
 }
