@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.LinkedList;
 import java.util.List;
@@ -115,7 +116,7 @@ public class RestUserController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, path = "/vote/{musicGenre}")
+    @RequestMapping(method = RequestMethod.POST, path = "/vote/{musicGenre}")
     public ResponseEntity<User> vote(@Valid @RequestBody UserDto userDto, BindingResult bindingResult, @PathVariable String musicGenre) {
         User user = userDtoToUser.convert(userDto);
 
@@ -124,9 +125,9 @@ public class RestUserController {
         }
 
         for (MusicGenre music : MusicGenre.values()) {
-            if(music.toString().equals(musicGenre)){
+            if (music.toString().equals(musicGenre)) {
                 user.setMusicGenre(music);
-                musicGenreService.addVote(user,music);
+                musicGenreService.addVote(user, music);
                 return new ResponseEntity<>(user, HttpStatus.OK);
             }
         }
@@ -138,18 +139,22 @@ public class RestUserController {
     @RequestMapping(method = RequestMethod.GET, path = "/{id}/win-votation")
     public ResponseEntity<MusicGenre> getUser(@PathVariable int id) {
 
-        musicGenreService.getPopularMusic();
-
-        if (clubService.getClub(id).getUserList().size() * 0.5 < musicGenreService.winnerValue()) {
+        if (musicGenreService.winnerValue() >= 5) {
             return new ResponseEntity<>(musicGenreService.changeGenre(id), HttpStatus.OK);
 
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/show-votes")
     public ResponseEntity<Map<User, MusicGenre>> showVotes() {
 
-        return new ResponseEntity<>(musicGenreService.getVotes(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(musicGenreService.getVotes(), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/bar-counter")
+    public ResponseEntity<Map<MusicGenre, Integer>> barCounter() {
+        musicGenreService.getPopularMusic();
+        return new ResponseEntity<>(musicGenreService.getCounters(), HttpStatus.ACCEPTED);
     }
 }

@@ -19,4 +19,6 @@ public interface MusicGenreService {
 
     Map<User, MusicGenre> getVotes();
 
+    Map<MusicGenre, Integer> getCounters();
+
 }
